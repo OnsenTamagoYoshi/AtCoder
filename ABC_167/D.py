@@ -47,10 +47,8 @@ for _ in range(num_of_town):
 # 香り高い町からの最終移動
 num_of_last_teleport = num_of_teleport % revisit
 k = fragranttown_index
-lasttown_index = fragranttown_index
 # rangeの中は一時変数にした方が高速
 for _ in range(num_of_last_teleport):
-    lasttown_index = k
     k = town[k - 1]
     
-print(lasttown_index)
+print(k)
