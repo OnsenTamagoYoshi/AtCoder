@@ -20,3 +20,4 @@ for k in range(1, K + 1):
         total = total + math.gcd(k, key) * cnt[key]
 
 print(total)
+
