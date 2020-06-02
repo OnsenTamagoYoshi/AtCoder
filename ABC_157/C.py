@@ -20,7 +20,8 @@ for query in querys:
 
 for i, _ in enumerate(guess_num):
     if _ == '*':
-        if i == 0:
+        # 1桁かつクエリが0の場合は除外する
+        if i == 0 and len(guess_num) > 1:
             guess_num[i] = '1'
         else:
             guess_num[i] = '0'
