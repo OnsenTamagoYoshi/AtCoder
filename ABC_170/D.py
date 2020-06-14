@@ -3,36 +3,23 @@ import numpy as np
 length = int(input())
 As = list(map(int, input().split()))
 
-# 1が1つでもいた場合　または
-# 長さが1　または　すべて同じ数字のみの場合
-# ⇒0確定
-if 1 in As or len(set(As)) == 1:
-    print(0)
-    exit()
+As.sort()
 
-As.sort(reverse=True)
-As = np.array(As)
+# indexを数値と紐づけるために+1増やした数にする
+check = np.zeros(10**6+1)
 
-out = 0
-while len(As) > 0:
-    # 末尾(最小値)を取得してリストから削除
-    e = As[-1]
-    As = np.delete(As, -1)
-    
-    # 重複がある場合
-    if e in As:
-        # 割り切れたもののインデックス抽出
-        tmp = np.where(As % e == 0)
-        tmp_ones = np.ones(len(As), dtype=bool)
-        tmp_ones[tmp] = False
-        As = As[tmp_ones]
-    # 重複がない場合
-    else:
-        out = out + 1
-        # 割り切れたもののインデックス抽出
-        tmp = np.where(As % e == 0)
-        tmp_ones = np.ones(len(As), dtype=bool)
-        tmp_ones[tmp] = False
-        As = As[tmp_ones]
+answer = 0
 
-print(out)
+# 与えられた数列の小さいものから順にループ
+for i in range(length):
+    if check[As[i]] == 0:
+        # 与えられた数値の倍数すべてに1を立てる
+        # checkは0始まりのため、0と倍数要素に1が立つ
+        check[::As[i]] = 1
+        
+        # checkリストが0の状態で数列の最後であればanswerへの加算は確定
+        # また、同じ数字が複数ある場合はカウントさせない
+        if  i == (length - 1) or  As[i] != As[i + 1]:
+                answer = answer + 1
+
+print(answer)
